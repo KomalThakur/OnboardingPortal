@@ -109,4 +109,23 @@ export class DataStorageService {
           throw err;
         });
   }
+
+  public changePassword(passwordObj, id,  token) {
+    console.log("inside change password service", passwordObj);
+      return this.http
+        .put(this.idcsBaseUrl + "/admin/v1/UserPasswordChanger/" +id , passwordObj, {
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          })
+        })
+        .toPromise()
+        .then(response => {
+          return response.json();
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        });
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DataStorageService } from "./shared/data-storage.service";
 import * as _ from "lodash";
-import { MatStepper } from '@angular/material';
+import { MatStepper } from "@angular/material";
 
 @Component({
   selector: "app-root",
@@ -12,15 +12,15 @@ import { MatStepper } from '@angular/material';
 export class AppComponent {
   isLinear = true;
   thirdFormGroup: FormGroup;
-  allOrgs = [] ;
-  firstStepChange ;
-  secondStepChange ;
-  thirdStepChange ;
-  isLoading=false;
+  allOrgs = [];
+  firstStepChange;
+  secondStepChange;
+  thirdStepChange;
+  isLoading = false;
   isError = false;
   error = "";
 
-  userRoles
+  userRoles;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -44,7 +44,7 @@ export class AppComponent {
         });
       }
     }
-this.isLoading= false;
+    this.isLoading = false;
     console.log(this.allOrgs);
   }
 
@@ -68,7 +68,7 @@ this.isLoading= false;
         familyName: this.thirdFormGroup.value.lastName,
         givenName: this.thirdFormGroup.value.firstName
       },
-      password: this.thirdFormGroup.value.password,
+      password: "TestPass@123<>?",
       emails: [
         {
           value: this.thirdFormGroup.value.email,
@@ -80,7 +80,21 @@ this.isLoading= false;
     try {
       let token = await this.dataStorageService.getAccessToken();
 
-      let user  = await this.dataStorageService.createUser(userObj, token.access_token);
+      let user = await this.dataStorageService.createUser(
+        userObj,
+        token.access_token
+      );
+
+      await this.dataStorageService.changePassword(
+        {
+          password: this.thirdFormGroup.value.password,
+          schemas: [
+            "urn:ietf:params:scim:schemas:oracle:idcs:UserPasswordChanger"
+          ]
+        },
+        user.id,
+        token.access_token
+      );
 
       for (let i = 0; i < this.allOrgs.length; i++) {
         if (this.allOrgs[i].value === true) {
@@ -116,7 +130,10 @@ this.isLoading= false;
             };
 
             console.log(addObj);
-            await this.dataStorageService.addApprole(addObj, token.access_token)
+            await this.dataStorageService.addApprole(
+              addObj,
+              token.access_token
+            );
           }
         }
       }
@@ -161,8 +178,8 @@ this.isLoading= false;
     });
   }
 
-  resetStepper(stepper: MatStepper){
+  resetStepper(stepper: MatStepper) {
     stepper.selectedIndex = 0;
     this.reset();
- }
+  }
 }
