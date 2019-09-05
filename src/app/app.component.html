@@ -1,0 +1,144 @@
+<div class="header-div">
+  <img src="../assets/oracle_logo.svg" />
+</div>
+<div class="step-div">
+  <p class="heading">Onboarding</p>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="bottom">
+    <mat-step [stepControl]="firstStepChange">
+      <div class="content-div">
+        <div class="form-content">
+          <div *ngIf= "isLoading === false">
+            <p>Select the Organisations</p>
+            <div *ngFor="let org of allOrgs">
+              <mat-checkbox [(ngModel)]="org.value" style="min-width: 30px;">{{
+                org.name
+              }}</mat-checkbox>
+            </div>
+          </div>
+          <mat-spinner style="align-self:center; margin-bottom: 30px;" *ngIf= "isLoading"></mat-spinner>
+        </div>
+      </div>
+      <div class="form-content-button">
+        <button
+          mat-flat-button
+          matStepperNext
+          (click)="stepChangeOne()"
+          style="background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white"
+        >
+          Next
+        </button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="secondStepChange">
+      <div class="content-div">
+        <div class="form-content">
+          <div>
+            <p>Select the roles</p>
+            <div *ngFor="let role of userRoles">
+              <mat-checkbox
+                [(ngModel)]="role.isSelected"
+                style="min-width: 30px;"
+                >{{ role.displayName }}</mat-checkbox
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-content-button">
+        <div>
+          <button
+            mat-flat-button
+            matStepperPrevious
+            style="min-width: 75px; margin-right: 5px; background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white"
+          >
+            Back
+          </button>
+          <button
+            mat-flat-button
+            matStepperNext
+            style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white"
+            (click)="stepChangeTwo()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="thirdStepChange">
+      <form [formGroup]="thirdFormGroup">
+        <div class="content-div">
+          <div class="form-content">
+            <div >
+              <p>Enter user details</p>
+              <div style="width: 400px;">
+                <label> First Name</label>
+                <input formControlName="firstName" required />
+              </div>
+              <div style="width: 400px;">
+                <label> Last Name</label>
+                <input formControlName="lastName" required />
+              </div>
+              <div style="width: 400px;">
+                <label> Email ID</label>
+                <input formControlName="email" required type="email" />
+              </div>
+              <div style="width: 400px;">
+                <label> Password</label>
+                <input formControlName="password" required type="password" />
+              </div>
+            </div>
+           
+          </div>
+
+        </div>
+        <div class="form-content-button">
+          <div>
+            <button
+              mat-flat-button
+              matStepperPrevious
+              style="min-width: 75px; margin-right: 5px; background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white"
+            >
+              Back
+            </button>
+            <button
+              mat-flat-button
+              matStepperNext
+              style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white"
+              (click)="formSubmit()"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <div class="content-div">
+        <div class="form-content">
+          <div style="margin-bottom: 30px; align-self: center;" *ngIf= "isLoading === false && isError === false">
+            User has been successfully created.
+          </div>
+          <div style="margin-bottom: 30px; align-self: center; color: red" *ngIf= "isLoading === false && isError === true">
+            Error while creating user : {{error}}
+          </div>
+          <mat-spinner style="align-self:center; margin-bottom: 30px;" *ngIf= "isLoading"></mat-spinner>
+        </div>
+      </div>
+
+      <div class="form-content-button">
+        <button
+          mat-flat-button
+          style="background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white"
+          (click)="resetStepper(stepper)"
+        >
+          Reset
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<div class="footer">
+    <p style="margin-top: 30px;">&copy; Oracle | Terms of Use and Privacy</p>
+  </div>
