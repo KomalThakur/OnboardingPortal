@@ -1,15 +1,29 @@
 .header-div {
   border-bottom: 1px solid #f1eded;
   margin: 0 20% 0 20%;
+  display: flex;
+  padding: 10px 0 10px 0;
+}
+
+.heading {
+  margin-left: 10px;
+  font-family: sans-serif;
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .step-div {
   margin: 0 20% 0 20%;
-  height: 90vh;
+}
+
+.vl {
+  border-left: 1px solid #f1eded;
+  height: 50px;
 }
 
 .content-div {
-  margin: 0 20% 0 20%;
+  /* margin: 0 10% 0 10%; */
   background-color: #fafafa;
 }
 
@@ -71,6 +85,23 @@
   padding-bottom: 0;
 }
 
+.tab-content {
+  align-self: flex-end;
+  margin-left: 50%;
+  margin-bottom: 10px;
+}
+
+.tab-content > div {
+  align-self: flex-end;
+}
+
+.inactive-tab {
+  display: inline;
+  margin-right: 30px;
+  padding: 8px;
+  font-family: sans-serif;
+}
+
 .form-content-button {
   display: flex;
   flex-direction: column;
@@ -80,7 +111,7 @@
 
 .form-content > div {
   /* align-self: center; */
-  padding-left: 30px;
+  padding-left: 50px;
 }
 
 .form-content-button > div {
@@ -90,14 +121,14 @@
 
 .form-content-button > button {
   align-self: center;
-  min-width: 150px;
+  width: 100px;
   color: white;
   margin-bottom: 80px;
 }
 
 .form-content > div > p {
   margin-top: 0px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 20px;
@@ -108,7 +139,9 @@ mat-form-field {
 }
 
 ::ng-deep .mat-checkbox-layout {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  vertical-align: baseline !important;
+  padding: 10px;
 }
 
 ::ng-deep .mat-checkbox-label {
@@ -151,18 +184,43 @@ label {
 div > mat-checkbox:last-child {
   margin-bottom: 0;
 }
-::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: #f29111 !important;
 }
 
 .footer {
   position: fixed;
-    left: 0;
-    bottom: 0;
-    margin: 0 20% 0 20%;
-    background-color: #fafafa;
-    color: #939699;
-    text-align: center;
-    width: 60%;
-    height: 70px;
+  left: 0;
+  bottom: 0;
+  margin: 0 20% 0 20%;
+  background-color: #fafafa;
+  color: #939699;
+  text-align: center;
+  width: 60%;
+  height: 70px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.active-tab {
+  background-color: #e2e2e2;
+  border-width: 40px;
+  border: solid;
+  border-color: #e2e2e2;
+  display: inline;
+  margin-right: 30px;
+  padding: 8px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+::ng-deep .mat-tab-label-active {
+  color: red;
+  font-weight: bolder;
+}
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: red;
+  height: 4px;
 }
