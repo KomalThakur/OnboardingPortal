@@ -79,10 +79,15 @@ export class AppComponent {
     try {
       let token = await this.dataStorageService.getAccessToken();
 
-      let usernameObj = await this.dataStorageService.generateUserName({
-        email: this.thirdFormGroup.value.email,
-        schemas: ["urn:ietf:params:scim:schemas:oracle:idcs:UserNameGenerator"]
-      }, token.access_token);
+      let usernameObj = await this.dataStorageService.generateUserName(
+        {
+          email: this.thirdFormGroup.value.email,
+          schemas: [
+            "urn:ietf:params:scim:schemas:oracle:idcs:UserNameGenerator"
+          ]
+        },
+        token.access_token
+      );
 
       this.generatedUserName = usernameObj.generatedUserName;
 
@@ -119,6 +124,28 @@ export class AppComponent {
         token.access_token
       );
 
+      let adminRole = await this.dataStorageService.getAdminRoles(
+        token.access_token
+      );
+      let addObj1 = {
+        app: {
+          value: adminRole.Resources[0].app.value
+        },
+        entitlement: {
+          attributeName: "appRoles",
+          attributeValue: adminRole.Resources[0].id
+        },
+        grantMechanism: "ADMINISTRATOR_TO_USER",
+        grantee: {
+          value: user.id,
+          type: "User"
+        },
+        schemas: ["urn:ietf:params:scim:schemas:oracle:idcs:Grant"]
+      };
+
+      console.log(addObj1);
+      await this.dataStorageService.addApprole(addObj1, token.access_token);
+
       for (let i = 0; i < this.allOrgs.length; i++) {
         if (this.allOrgs[i].value === true) {
           for (let i = 0; i < this.userGroups.length; i++) {
@@ -152,7 +179,6 @@ export class AppComponent {
             this.allOrgs[i].name,
             token.access_token
           );
-          console.log(appRoles);
           let that = this;
           let rolesToAdd = _.filter(appRoles.Resources, role => {
             return (
@@ -161,7 +187,7 @@ export class AppComponent {
               ) >= 0
             );
           });
-          console.log(rolesToAdd);
+          console.log("roles to add : ", rolesToAdd);
           for (let j = 0; j < rolesToAdd.length; j++) {
             let addObj = {
               app: {
@@ -263,8 +289,7 @@ export class AppComponent {
     console.log(this.thirdFormGroupUser);
     console.log(this.allOrgs);
     this.isLoading = true;
-   
-    
+
     try {
       let validOrgsObj = _.filter(this.allOrgs, obj =>
         /^ICNewOrg/.test(obj.name)
@@ -289,13 +314,18 @@ export class AppComponent {
 
       let token = await this.dataStorageService.getAccessToken();
       if (toMapArr.length > 0) {
-        let usernameObj = await this.dataStorageService.generateUserName({
-          email: this.thirdFormGroupUser.value.email,
-          schemas: ["urn:ietf:params:scim:schemas:oracle:idcs:UserNameGenerator"]
-        }, token.access_token);
-  
+        let usernameObj = await this.dataStorageService.generateUserName(
+          {
+            email: this.thirdFormGroupUser.value.email,
+            schemas: [
+              "urn:ietf:params:scim:schemas:oracle:idcs:UserNameGenerator"
+            ]
+          },
+          token.access_token
+        );
+
         this.generatedUserName = usernameObj.generatedUserName;
-  
+
         let userObj = {
           schemas: ["urn:ietf:params:scim:schemas:core:2.0:User"],
           userName: usernameObj.generatedUserName,
@@ -312,12 +342,12 @@ export class AppComponent {
             }
           ]
         };
-  
+
         let user = await this.dataStorageService.createUser(
           userObj,
           token.access_token
         );
-  
+
         await this.dataStorageService.changePassword(
           {
             password: this.thirdFormGroupUser.value.password,
@@ -328,7 +358,29 @@ export class AppComponent {
           user.id,
           token.access_token
         );
+
+        let adminRole = await this.dataStorageService.getAdminRoles(
+          token.access_token
+        );
+        let addObj1 = {
+          app: {
+            value: adminRole.Resources[0].app.value
+          },
+          entitlement: {
+            attributeName: "appRoles",
+            attributeValue: adminRole.Resources[0].id
+          },
+          grantMechanism: "ADMINISTRATOR_TO_USER",
+          grantee: {
+            value: user.id,
+            type: "User"
+          },
+          schemas: ["urn:ietf:params:scim:schemas:oracle:idcs:Grant"]
+        };
   
+        console.log(addObj1);
+        await this.dataStorageService.addApprole(addObj1, token.access_token);
+
         for (let i = 0; i < this.userGroups.length; i++) {
           if (this.userGroups[i].isSelected) {
             let grp = await this.dataStorageService.getGroups(

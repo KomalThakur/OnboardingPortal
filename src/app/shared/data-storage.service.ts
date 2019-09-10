@@ -77,6 +77,29 @@ export class DataStorageService {
       });
   }
 
+  public getAdminRoles( token) {
+    console.log("inside get App roles service");
+    return this.http
+      .get(
+        this.idcsBaseUrl +
+          `/admin/v1/AppRoles?filter=displayName+sw+"OBC"`,
+        {
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          })
+        }
+      )
+      .toPromise()
+      .then(response => {
+        return response.json();
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  }
+
   public getGroups(name, token) {
     console.log("inside get group service", name);
     return this.http
