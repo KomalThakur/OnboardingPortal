@@ -2,7 +2,31 @@
   border-bottom: 1px solid #f1eded;
   margin: 0 20% 0 20%;
   display: flex;
-  padding: 10px 0 10px 0;
+}
+
+@media only screen and (max-width: 800px) {
+  .header-div {
+    border-bottom: 1px solid #f1eded;
+    margin: 0;
+    display: flex;
+  }
+  .step-div {
+    margin: 0 !important;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: #fafafa;
+    color: #939699;
+    text-align: center;
+    width: 60%;
+    height: 70px;
+    cursor: pointer;
+    z-index: 2;
+  }
 }
 
 .heading1 {
@@ -19,7 +43,7 @@
 
 .vl {
   border-left: 1px solid #f1eded;
-  height: 50px;
+  height: 40px;
 }
 
 .content-div {
@@ -62,6 +86,13 @@
   width: calc(50% - 50px) !important;
 }
 
+::ng-deep .mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+  box-sizing: border-box;
+  flex-direction: column;
+  height: auto;
+  padding: 15px !important;
+}
+
 ::ng-deep .mat-horizontal-content-container {
   margin-top: 10px;
 }
@@ -74,6 +105,9 @@
   font-family: sans-serif;
 }
 
+::ng-deep .mat-tab-header, .mat-tab-nav-bar {
+  border-bottom: 0 !important;
+}
 .mat-checkbox {
   min-width: 100%;
 }
@@ -141,7 +175,6 @@ mat-form-field {
 ::ng-deep .mat-checkbox-layout {
   margin-bottom: 10px;
   vertical-align: baseline !important;
-  padding: 10px;
 }
 
 ::ng-deep .mat-checkbox-label {
@@ -171,8 +204,7 @@ input {
   border-width: 1px;
   border-color: #939699;
   min-width: 100%;
-  margin-bottom: 30px;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 label {

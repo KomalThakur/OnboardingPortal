@@ -19,7 +19,7 @@
     </div>
   </div> -->
 </div>
-<div class="step-div" style="margin-top: 30px;" >
+<div class="step-div" style="margin-top: 10px;" >
   <mat-tab-group (selectedTabChange)=changeTab()>
     <mat-tab label="User Onboarding" >
       <mat-horizontal-stepper
@@ -107,22 +107,22 @@
         <mat-step [stepControl]="thirdStepChange" label="User Info">
           <form [formGroup]="thirdFormGroup">
             <div class="content-div">
-              <div class="form-content">
+              <div class="form-content" style="padding-top: 10px;">
                 <div>
                   <p>Enter user details</p>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> First Name</label>
                     <input formControlName="firstName" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Last Name</label>
                     <input formControlName="lastName" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Email ID</label>
                     <input formControlName="email" required type="email" />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Password</label>
                     <input
                       formControlName="password"
@@ -199,22 +199,22 @@
         <mat-step [stepControl]="firstStepChangeOrg" label="Organisation">
           <form [formGroup]="thirdFormGroupOrg">
             <div class="content-div">
-              <div class="form-content">
+              <div class="form-content" style="padding-top: 10px;">
                 <div>
                   <p>Enter Organisation details</p>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Organisation Name</label>
                     <input formControlName="orgName" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Address Line 1</label>
                     <input formControlName="addressLine1" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Address Line 2</label>
                     <input formControlName="addressLine2" />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Contact Details (Email/ Phone)</label>
                     <input formControlName="contact" required />
                   </div>
@@ -235,22 +235,22 @@
         <mat-step [stepControl]="secondStepChangeOrg" label="User Info">
           <form [formGroup]="thirdFormGroupUser">
             <div class="content-div">
-              <div class="form-content">
+              <div class="form-content" style="padding-top: 10px;">
                 <div>
                   <p>Enter user details</p>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> First Name</label>
                     <input formControlName="firstName" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Last Name</label>
                     <input formControlName="lastName" required />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Email ID</label>
                     <input formControlName="email" required type="email" />
                   </div>
-                  <div style="width: 420px;">
+                  <div style="width: 90%;">
                     <label> Password</label>
                     <input
                       formControlName="password"
@@ -268,7 +268,7 @@
                 <label>User roles: </label>
                 <mat-checkbox
                   [(ngModel)]="role.isSelected"
-                  style="min-width: 30px;"
+                  style="min-width: 30px; padding-left: 10px;"
                   *ngFor="let role of userRoles"
                   >{{ role.alias }}</mat-checkbox
                 >
@@ -277,7 +277,7 @@
                 <label>User Groups: </label>
                 <mat-checkbox
                   [(ngModel)]="role.isSelected"
-                  style="min-width: 30px;"
+                  style="min-width: 30px; padding-left: 10px;"
                   *ngFor="let role of userGroups"
                   >{{ role.alias }}</mat-checkbox
                 >
