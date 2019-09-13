@@ -314,6 +314,7 @@ export class AppComponent {
 
       let token = await this.dataStorageService.getAccessToken();
       if (toMapArr.length > 0) {
+        console.log("in if");
         let usernameObj = await this.dataStorageService.generateUserName(
           {
             email: this.thirdFormGroupUser.value.email,

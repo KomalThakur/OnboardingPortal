@@ -6,19 +6,33 @@ import { Headers, RequestOptions } from "@angular/http";
   providedIn: "root"
 })
 export class DataStorageService {
-  obpBaseUrl = "https://iccorporate-oabcs1.blockchain.ocp.oraclecloud.com:443";
+  // old booth instance
+  // obpBaseUrl = "https://iccorporate-oabcs1.blockchain.ocp.oraclecloud.com:443";
+  // idcsBaseUrl =
+  //   "https://idcs-77c15f1e68604c058062a4220f5601d0.identity.oraclecloud.com";
+  // restProxyUrl =
+  //   "https://7ED46BA56B1248BE9DABC941F63C617A.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction";
+  
+  // auth= "Basic aWNsZWRnZXI6V2VsY29tZSMxMjM0NQ=="
+
+  //new booth instance
+
+  obpBaseUrl = "https://honest3pl-oabcs1.blockchain.ocp.oraclecloud.com:443";
   idcsBaseUrl =
     "https://idcs-77c15f1e68604c058062a4220f5601d0.identity.oraclecloud.com";
   restProxyUrl =
-    "https://7ED46BA56B1248BE9DABC941F63C617A.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction";
-  constructor(private http: Http) {}
+    "https://F969CA47421242DFB90E506F7A3C366B.blockchain.ocp.oraclecloud.com:443/restproxy1/bcsgw/rest/v1/transaction";
+  
+  auth= "Basic aWNsZWRnZXI6V2VsY29tZSMxMjM0NQ=="
+  
+    constructor(private http: Http) {}
 
   public getOrganisations() {
     return this.http
       .get(this.obpBaseUrl + "/console/admin/api/v1.1/organizations", {
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: "Basic aWNsZWRnZXI6V2VsY29tZSMxMjM0NQ=="
+          Authorization: this.auth
         })
       })
       .toPromise()
@@ -233,7 +247,7 @@ export class DataStorageService {
         this.restProxyUrl + "/query",
         {
           channel: "icledger",
-          chaincode: "ic-ledger-organisation-final",
+          chaincode: "ic-ledger-Organisations",
           method: "queryOrg",
           args: [
             '{"selector":{"docType":"Organisations", "orgid": {"$regex": "^ICNewOrg"}}}'
@@ -243,7 +257,7 @@ export class DataStorageService {
         {
           headers: new Headers({
             "Content-Type": "application/json",
-            Authorization: `Basic aWNsZWRnZXI6V2VsY29tZSMxMjM0NQ==`
+            Authorization: this.auth
           })
         }
       )
@@ -264,9 +278,9 @@ export class DataStorageService {
         this.restProxyUrl + "/invocation",
         {
           channel: "icledger",
-          chaincode: "ic-ledger-organisation-final",
+          chaincode: "ic-ledger-Organisations",
           method: "addorg",
-          args: 
+          args:  
             data
           ,
           chaincodeVer: "v1"
@@ -274,7 +288,7 @@ export class DataStorageService {
         {
           headers: new Headers({
             "Content-Type": "application/json",
-            Authorization: `Basic aWNsZWRnZXI6V2VsY29tZSMxMjM0NQ==`
+            Authorization: this.auth
           })
         }
       )
