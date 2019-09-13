@@ -5,6 +5,157 @@
 </div>
 <div class="step-div" style="margin-top: 10px;" >
   <mat-tab-group (selectedTabChange)=changeTab()>
+      <mat-tab label="Organisation Onboarding" >
+          <mat-horizontal-stepper
+            [linear]="isLinear"
+            #stepper1
+            labelPosition="bottom"
+            style="margin: 10px 20% 0 20%"
+          >
+            <mat-step [stepControl]="firstStepChangeOrg" label="Organisation">
+              <form [formGroup]="thirdFormGroupOrg">
+                <div class="content-div">
+                  <div class="form-content" style="padding-top: 10px;">
+                    <div>
+                      <p>Enter Organisation details</p>
+                      <div style="width: 90%;">
+                        <label> Organisation Name*</label>
+                        <input formControlName="orgName" required />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Address Line 1*</label>
+                        <input formControlName="addressLine1" required />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Address Line 2</label>
+                        <input formControlName="addressLine2" />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Contact Details (Email/ Phone)*</label>
+                        <input formControlName="contact" required />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-content-button">
+                  <button
+                    mat-flat-button
+                    matStepperNext
+                    style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
+                  >
+                    Next
+                  </button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondStepChangeOrg" label="User Info">
+              <form [formGroup]="thirdFormGroupUser">
+                <div class="content-div">
+                  <div class="form-content" style="padding-top: 10px;">
+                    <div>
+                      <p>Enter user details</p>
+                      <div style="width: 90%;">
+                        <label> First Name*</label>
+                        <input formControlName="firstName" required />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Last Name*</label>
+                        <input formControlName="lastName" required />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Email ID*</label>
+                        <input formControlName="email" required type="email" />
+                      </div>
+                      <div style="width: 90%;">
+                        <label> Password*</label>
+                        <input
+                          formControlName="password"
+                          required
+                          type="password"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="content-div">
+                <div class="form-content" style="padding-top: 0">
+                  <div>
+                    <label>User roles: </label>
+                    <mat-checkbox
+                      [(ngModel)]="role.isSelected"
+                      style="min-width: 30px; padding-left: 10px;"
+                      *ngFor="let role of userRoles"
+                      >{{ role.alias }}</mat-checkbox
+                    >
+                  </div>
+                  <div>
+                    <label>User Groups: </label>
+                    <mat-checkbox
+                      [(ngModel)]="role.isSelected"
+                      style="min-width: 30px; padding-left: 10px;"
+                      *ngFor="let role of userGroups"
+                      >{{ role.alias }}</mat-checkbox
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-content-button">
+                <div>
+                  <button
+                    mat-flat-button
+                    matStepperPrevious
+                    style="min-width: 75px; margin-right: 5px; background-color: white;font-size: 18px; font-family: sans-serif; color: black; border: solid; border-radius: 4px; border-color: #00758f"
+                  >
+                    Back
+                  </button>
+                  <button
+                    mat-flat-button
+                    matStepperNext
+                    style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
+                    (click)="orgFormSubmit()"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </mat-step>
+            <mat-step>
+              <div class="content-div">
+                <div class="form-content">
+                  <div
+                    style="margin-bottom: 30px; align-self: center;"
+                    *ngIf="isLoading === false && isError === false"
+                  >
+                    <p>Organisation Onboarded Successfully</p>
+                    <p>Organisation name : {{ thirdFormGroupOrg.value.orgName }}</p>
+                    <p>Username : {{ generatedUserName }}</p>
+                  </div>
+                  <div
+                    style="margin-bottom: 30px; align-self: center; color: red"
+                    *ngIf="isLoading === false && isError === true"
+                  >
+                    Error while creating user : {{ error }}
+                  </div>
+                  <mat-spinner
+                    style="align-self:center; margin-bottom: 30px;"
+                    *ngIf="isLoading"
+                  ></mat-spinner>
+                </div>
+              </div>
+    
+              <div class="form-content-button">
+                <button
+                  mat-flat-button
+                  style="background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
+                  (click)="resetStepper(stepper1)"
+                >
+                  Reset
+                </button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </mat-tab>
     <mat-tab label="User Onboarding" >
       <mat-horizontal-stepper
         [linear]="isLinear"
@@ -166,157 +317,6 @@
               mat-flat-button
               style="background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white; border-width: 2px; border: solid; border-radius: 4px; border-color: #00758f;"
               (click)="resetStepper(stepper)"
-            >
-              Reset
-            </button>
-          </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-    </mat-tab>
-    <mat-tab label="Organisation Onboarding" >
-      <mat-horizontal-stepper
-        [linear]="isLinear"
-        #stepper1
-        labelPosition="bottom"
-        style="margin: 10px 20% 0 20%"
-      >
-        <mat-step [stepControl]="firstStepChangeOrg" label="Organisation">
-          <form [formGroup]="thirdFormGroupOrg">
-            <div class="content-div">
-              <div class="form-content" style="padding-top: 10px;">
-                <div>
-                  <p>Enter Organisation details</p>
-                  <div style="width: 90%;">
-                    <label> Organisation Name*</label>
-                    <input formControlName="orgName" required />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Address Line 1*</label>
-                    <input formControlName="addressLine1" required />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Address Line 2</label>
-                    <input formControlName="addressLine2" />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Contact Details (Email/ Phone)*</label>
-                    <input formControlName="contact" required />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-content-button">
-              <button
-                mat-flat-button
-                matStepperNext
-                style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
-              >
-                Next
-              </button>
-            </div>
-          </form>
-        </mat-step>
-        <mat-step [stepControl]="secondStepChangeOrg" label="User Info">
-          <form [formGroup]="thirdFormGroupUser">
-            <div class="content-div">
-              <div class="form-content" style="padding-top: 10px;">
-                <div>
-                  <p>Enter user details</p>
-                  <div style="width: 90%;">
-                    <label> First Name*</label>
-                    <input formControlName="firstName" required />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Last Name*</label>
-                    <input formControlName="lastName" required />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Email ID*</label>
-                    <input formControlName="email" required type="email" />
-                  </div>
-                  <div style="width: 90%;">
-                    <label> Password*</label>
-                    <input
-                      formControlName="password"
-                      required
-                      type="password"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-          <div class="content-div">
-            <div class="form-content" style="padding-top: 0">
-              <div>
-                <label>User roles: </label>
-                <mat-checkbox
-                  [(ngModel)]="role.isSelected"
-                  style="min-width: 30px; padding-left: 10px;"
-                  *ngFor="let role of userRoles"
-                  >{{ role.alias }}</mat-checkbox
-                >
-              </div>
-              <div>
-                <label>User Groups: </label>
-                <mat-checkbox
-                  [(ngModel)]="role.isSelected"
-                  style="min-width: 30px; padding-left: 10px;"
-                  *ngFor="let role of userGroups"
-                  >{{ role.alias }}</mat-checkbox
-                >
-              </div>
-            </div>
-          </div>
-          <div class="form-content-button">
-            <div>
-              <button
-                mat-flat-button
-                matStepperPrevious
-                style="min-width: 75px; margin-right: 5px; background-color: white;font-size: 18px; font-family: sans-serif; color: black; border: solid; border-radius: 4px; border-color: #00758f"
-              >
-                Back
-              </button>
-              <button
-                mat-flat-button
-                matStepperNext
-                style="min-width: 75px; margin-left: 5px; background-color: #00758f; font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
-                (click)="orgFormSubmit()"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </mat-step>
-        <mat-step>
-          <div class="content-div">
-            <div class="form-content">
-              <div
-                style="margin-bottom: 30px; align-self: center;"
-                *ngIf="isLoading === false && isError === false"
-              >
-                <p>Organisation Onboarded Successfully</p>
-                <p>Organisation name : {{ thirdFormGroupOrg.value.orgName }}</p>
-                <p>Username : {{ generatedUserName }}</p>
-              </div>
-              <div
-                style="margin-bottom: 30px; align-self: center; color: red"
-                *ngIf="isLoading === false && isError === true"
-              >
-                Error while creating user : {{ error }}
-              </div>
-              <mat-spinner
-                style="align-self:center; margin-bottom: 30px;"
-                *ngIf="isLoading"
-              ></mat-spinner>
-            </div>
-          </div>
-
-          <div class="form-content-button">
-            <button
-              mat-flat-button
-              style="background-color: #00758f;font-size: 18px; font-family: sans-serif; color: white; border: solid; border-radius: 4px; border-color: #00758f"
-              (click)="resetStepper(stepper1)"
             >
               Reset
             </button>
