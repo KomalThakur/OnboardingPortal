@@ -2,22 +2,6 @@
   <img src="../assets/oracle_logo.svg" />
   <div class="vl"></div>
   <p class=heading1>Onboarding</p>
-  <!-- <div class="tab-content">
-    <div>
-      <h4
-        [ngClass]="{ 'inactive-tab': tab === 2, 'active-tab': tab === 1 }"
-        (click)="changeTab(1)"
-      >
-        USER
-      </h4>
-      <h4
-        [ngClass]="{ 'inactive-tab': tab === 1, 'active-tab': tab === 2 }"
-        (click)="changeTab(2)"
-      >
-        ORGANISATION
-      </h4>
-    </div>
-  </div> -->
 </div>
 <div class="step-div" style="margin-top: 10px;" >
   <mat-tab-group (selectedTabChange)=changeTab()>
@@ -111,19 +95,19 @@
                 <div>
                   <p>Enter user details</p>
                   <div style="width: 90%;">
-                    <label> First Name</label>
+                    <label> First Name*</label>
                     <input formControlName="firstName" required />
                   </div>
                   <div style="width: 90%;">
-                    <label> Last Name</label>
+                    <label> Last Name*</label>
                     <input formControlName="lastName" required />
                   </div>
                   <div style="width: 90%;">
-                    <label> Email ID</label>
+                    <label> Email ID*</label>
                     <input formControlName="email" required type="email" />
                   </div>
                   <div style="width: 90%;">
-                    <label> Password</label>
+                    <label> Password*</label>
                     <input
                       formControlName="password"
                       required
@@ -161,8 +145,8 @@
                 style="margin-bottom: 30px; align-self: center;"
                 *ngIf="isLoading === false && isError === false"
               >
-                User has been successfully created. UserName :
-                {{ generatedUserName }}
+               <p> User has been successfully created.</p>
+               <p> UserName : {{ generatedUserName }}</p>
               </div>
               <div
                 style="margin-bottom: 30px; align-self: center; color: red"
@@ -203,11 +187,11 @@
                 <div>
                   <p>Enter Organisation details</p>
                   <div style="width: 90%;">
-                    <label> Organisation Name</label>
+                    <label> Organisation Name*</label>
                     <input formControlName="orgName" required />
                   </div>
                   <div style="width: 90%;">
-                    <label> Address Line 1</label>
+                    <label> Address Line 1*</label>
                     <input formControlName="addressLine1" required />
                   </div>
                   <div style="width: 90%;">
@@ -215,7 +199,7 @@
                     <input formControlName="addressLine2" />
                   </div>
                   <div style="width: 90%;">
-                    <label> Contact Details (Email/ Phone)</label>
+                    <label> Contact Details (Email/ Phone)*</label>
                     <input formControlName="contact" required />
                   </div>
                 </div>
@@ -239,19 +223,19 @@
                 <div>
                   <p>Enter user details</p>
                   <div style="width: 90%;">
-                    <label> First Name</label>
+                    <label> First Name*</label>
                     <input formControlName="firstName" required />
                   </div>
                   <div style="width: 90%;">
-                    <label> Last Name</label>
+                    <label> Last Name*</label>
                     <input formControlName="lastName" required />
                   </div>
                   <div style="width: 90%;">
-                    <label> Email ID</label>
+                    <label> Email ID*</label>
                     <input formControlName="email" required type="email" />
                   </div>
                   <div style="width: 90%;">
-                    <label> Password</label>
+                    <label> Password*</label>
                     <input
                       formControlName="password"
                       required
